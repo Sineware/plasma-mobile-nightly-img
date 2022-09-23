@@ -39,6 +39,8 @@ build_image () {
     echo "Loop Device: $LOOP_DEV"
     sudo losetup -f -P $IMAGE_FILE
     losetup -l
+    sudo partprobe $LOOP_DEV
+    sudo udevadm trigger
     echo "Waiting for devices to settle..."
     sleep 5
     ls -l /dev/disk/by-label
