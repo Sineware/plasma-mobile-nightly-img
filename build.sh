@@ -47,6 +47,7 @@ build_image () {
         sudo losetup -d $LOOP_DEV
         exit 1
     fi
+    mkdir -pv ./mnt
     sudo mount /dev/disk/by-label/pmOS_root ./mnt
     ls -l ./mnt
     sudo echo "https://espi.sineware.ca/repo/alpine/prolinux-nightly/" | sudo tee -a ./mnt/etc/apk/repositories
@@ -54,8 +55,6 @@ build_image () {
     #PS1="] " sh
 
     echo "Entering chroot..."
-    # mount dev and stuff
-    mkdir -pv ./mnt
     sudo mount -t proc /proc ./mnt/proc/
     sudo mount -t sysfs /sys ./mnt/sys/
     sudo mount --bind /dev ./mnt/dev/
