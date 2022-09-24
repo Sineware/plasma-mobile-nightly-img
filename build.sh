@@ -31,7 +31,6 @@ build_image () {
         --details-to-stdout \
         install
 
-    # pmbootstrap shutdown
     ls -l $(pmbootstrap config work)/chroot_native/home/pmos/rootfs/
 
     cp -v $(pmbootstrap config work)/chroot_native/home/pmos/rootfs/${1}.img .
@@ -80,6 +79,8 @@ EOF
 
     sudo umount -R ./mnt
     sudo losetup -d $LOOP_DEV
+
+    pmbootstrap shutdown
 }
 
 build_image "tablet-x64uefi" "stable"
