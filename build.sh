@@ -88,10 +88,15 @@ build_image "pine64-pinephone" ""
 
 # compress each *.img file
 for f in *.img; do
+    rm -rf "${f}.xz"
     echo "Compressing $f"
     xz -T0 -v $f
+    # date as numbers
+    DATE=$(date +%Y%m%d)
+    FILE_NAME="sineware-prolinux-plasma-mobile-nightly-${DATE}-${f}.xz"
+    mv -v "${f}.xz" "${FILE_NAME}"
     # create hash of file
-    sha256sum $f.xz > $f.xz.sha256
+    sha256sum ${FILE_NAME} > ${FILE_NAME}.sha256
 done
 
 rsync -aHAXxv --delete --progress *.img.* espimac:/var/www/sineware/images/plasma-mobile-nightly/
