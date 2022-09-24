@@ -68,8 +68,7 @@ build_image () {
     # chroot
     sudo chroot ./mnt /bin/busybox sh  <<'EOF'
         echo "(chroot) Upgrading to Plasma Mobile Nightly packages..."
-        /sbin/apk update
-        /sbin/apk upgrade
+        /sbin/apk update && /sbin/apk upgrade
         /sbin/apk add nano bash neofetch htop
         echo "Sineware ProLinux - Plasma Mobile Nightly Image built on $(/bin/date)" >> prolinux_build_info.txt
         echo "(chroot) Exiting chroot..."
@@ -77,10 +76,16 @@ EOF
 
     sudo rm -rf ./mnt/etc/resolv.conf
 
+    sleep 3
+
     sudo umount -R ./mnt
     sudo losetup -d $LOOP_DEV
 
+    WORK=$(pmbootstrap config work)
+    pmbootstrap -y zap
     pmbootstrap shutdown
+    sudo rm -rf $WORK
+    sudo rm ~/.config/pmbootstrap.cfg
 }
 
 build_image "tablet-x64uefi" "stable"
@@ -93,12 +98,13 @@ for f in *.img; do
     xz -T0 -v $f
     # date as numbers
     DATE=$(date +%Y%m%d)
-    FILE_NAME="sineware-prolinux-plasma-mobile-nightly-${DATE}-${f}.xz"
-    mv -v "${f}.xz" "${FILE_NAME}"
+    FILE_NAME="sineware-plasma-mobile-nightly-${DATE}-${f}.xz"
+    mkdir -pv images/
+    mv -v "${f}.xz" "images/${FILE_NAME}"
     # create hash of file
-    sha256sum ${FILE_NAME} > ${FILE_NAME}.sha256
+    sha256sum images/${FILE_NAME} > images/${FILE_NAME}.sha256
 done
 
-rsync -aHAXxv --delete --progress *.img.* espimac:/var/www/sineware/images/plasma-mobile-nightly/
+rsync -aHAXxv --delete --progress images/ espimac:/var/www/sineware/images/plasma-mobile-nightly/
 
 echo "All done!"
