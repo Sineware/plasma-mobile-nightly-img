@@ -90,6 +90,7 @@ EOF
 
 build_image "tablet-x64uefi" "stable"
 build_image "pine64-pinephone" ""
+build_image "pine64-pinephonepro" ""
 
 # compress each *.img file
 for f in *.img; do
@@ -98,7 +99,7 @@ for f in *.img; do
     xz -T0 -v $f
     # date as numbers
     DATE=$(date +%Y%m%d)
-    FILE_NAME="sineware-plasma-mobile-nightly-${DATE}-${f}.xz"
+    FILE_NAME="pmos-plasma-mobile-nightly-${DATE}-${f}.xz"
     mkdir -pv images/
     mv -v "${f}.xz" "images/${FILE_NAME}"
     # create hash of file
