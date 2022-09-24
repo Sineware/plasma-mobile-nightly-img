@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -e
 whoami
+export PATH=/home/swadmin/.local/bin/:$PATH
 
 # Partially derived from https://builds.sr.ht/api/jobs/848773/manifest
 
