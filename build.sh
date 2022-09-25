@@ -93,6 +93,8 @@ build_image "tablet-x64uefi" "stable"
 build_image "pine64-pinephone" ""
 build_image "pine64-pinephonepro" ""
 
+mkdir -pv images/
+rm -rfv images/*
 # compress each *.img file
 for f in *.img; do
     rm -rf "${f}.xz"
@@ -101,12 +103,11 @@ for f in *.img; do
     # date as numbers
     DATE=$(date +%Y%m%d)
     FILE_NAME="pmos-plasma-mobile-nightly-${DATE}-${f}.xz"
-    mkdir -pv images/
     mv -v "${f}.xz" "images/${FILE_NAME}"
     # create hash of file
     sha256sum images/${FILE_NAME} > images/${FILE_NAME}.sha256
 done
 
-rsync -aHAXxv --delete --progress images/ espimac:/var/www/sineware/images/plasma-mobile-nightly/
+rsync -aHAXxv --delete --progress images espimac:/var/www/sineware/images/plasma-mobile-nightly
 
 echo "All done!"
