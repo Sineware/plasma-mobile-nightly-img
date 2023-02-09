@@ -90,7 +90,7 @@ EOF
     sudo rm ~/.config/pmbootstrap.cfg
 }
 
-build_image "tablet-x64uefi" "edge"
+# build_image "tablet-x64uefi" "edge"
 build_image "pine64-pinephone" ""
 build_image "pine64-pinephonepro" ""
 
