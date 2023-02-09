@@ -29,7 +29,7 @@ build_image () {
         -m http://dl-cdn.alpinelinux.org/alpine/ \
         -mp http://mirror.postmarketos.org/postmarketos/ \
         --details-to-stdout \
-        --extra-space 512 \
+        --extra-space 1024 \
         install
 
     ls -l $(pmbootstrap config work)/chroot_native/home/pmos/rootfs/
