@@ -7,13 +7,13 @@ export PATH=/home/swadmin/.local/bin/:$PATH
 
 build_image () {
     echo "Building image for $1"
-    #if [ ! -d pmaports ]; then
-    #    git clone https://gitlab.com/postmarketOS/pmaports.git
-    #else 
-    #    cd pmaports
-    #    git pull
-    #    cd ..
-    #fi
+    if [ ! -d pmaports ]; then
+        git clone https://gitlab.com/postmarketOS/pmaports.git
+    else 
+        cd pmaports
+        git pull
+        cd ..
+    fi
 
     #yes "" | pmbootstrap --aports=$PWD/pmaports -q init
     yes "" | pmbootstrap -q init
