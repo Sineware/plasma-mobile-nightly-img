@@ -73,7 +73,7 @@ build_image () {
         /sbin/apk update && /sbin/apk upgrade
         /sbin/apk add nano bash neofetch htop flatpak
         /sbin/apk add alligator angelfish audiotube calindori kalk kasts kclock keysmith koko krecorder ktrip kweather neochat plasma-dialer plasma-phonebook plasma-settings plasmatube qmlkonsole spacebar tokodon okular elisa plasma-camera
-        /sbin/apk add prolinuxd kretro
+        /sbin/apk add prolinuxd kretro kdialog
         /sbin/rc-update add prolinuxd
         echo "Sineware ProLinux - Plasma Mobile Nightly Image built on $(/bin/date)" >> prolinux_build_info.txt
         echo "(chroot) Exiting chroot..."
